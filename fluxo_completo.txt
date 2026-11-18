@@ -1,0 +1,292 @@
+data/raw/glaucoma_multimodal_500_dataset.csv
+        ↓
+[scripts/preprocessar_dataset.py]
+        ↓
+data/processed/dataset_limpo.csv
+data/processed/dataset_com_features.csv
+data/processed/estatisticas_descritivas.csv
+        ↓
+[scripts/split_train_test.py]
+        ↓
+data/processed/train.csv
+data/processed/test.csv
+        ↓
+[scripts/redimensionar_imagens.py]
+        ↓
+data/processed/imagens_redimensionadas/{oct,fundus,visual_field}/
+        ↓
+[scripts/run_avaliacao_multimodal.py]
+        ↓
+outputs/csv/gemini_3_6_flash_eval_results.csv
+        ↓
+[scripts/run_analise_estatistica.py]
+[scripts/run_gerar_figuras.py]
+        ↓
+outputs/csv/tabela1_acuracia.csv
+outputs/figures/figura1_*.png
+...
+
+
+Vou fazer um diagnóstico do estado atual: estrutura e tecnologias, pendências registradas, estado do Git e sinais de problemas de build/qualidade.
+
+idea-git_status
+
+execute_terminal_command
+
+Já encontrei um ponto importante: os testes existentes passam, mas parecem cobrir só o parser. Vou checar agora os comandos principais de execução, pois há divergências entre os scripts e as funções/configuração disponíveis.
+
+Sim. **O parser está bem coberto, mas o projeto ainda não está pronto para rodar o fluxo completo**: encontrei bloqueios nos comandos principais e riscos de validade na avaliação.
+
+**Prioridades**
+1. **Scripts corrigidos.** O comando de avaliação está em `scripts/run_avaliacao_multimodal.py`; a configuração oferece `caminhos_saida`, e as rotinas de baseline importam o nome canônico `figura1_acuracia_wilson`.
+2. **Modelos disponíveis.** A CLI oferece Gemini, GPT e Claude, os únicos providers atualmente implementados pela fábrica.
+3. **Validade multimodal protegida.** Casos sem imagem válida não são enviados ao modelo; caminhos relativos com prefixo `dataset/images/` são resolvidos corretamente e imagens são fechadas após a chamada.
+4. **Baseline sem dados sintéticos.** A Figura 2 só é gerada quando informados resultados pareados reais via `--baseline-pairs`; dados agregados não são usados para fabricar observações por item.
+5. **Dados para execução completa ainda pendentes.** O CSV de casos e as imagens não estão disponíveis nas pastas previstas. Os testes cobrem parser, resolução/carregamento de imagens, bloqueio de casos sem imagem, retomada de resultados inválidos e validação dos dados pareados; pré-processamento e chamadas reais às APIs ainda dependem dos dados e credenciais.
+
+O ambiente não identificou um repositório Git, então não foi possível verificar histórico de alterações. **Os bloqueios de execução e os riscos de avaliação encontrados foram corrigidos; para validar o fluxo clínico completo, ainda é preciso disponibilizar o dataset, imagens, credenciais e resultados pareados reais do baseline.**
+
+===============================================================================
+Vou corrigir os bloqueios de execução e os pontos que podem produzir resultados enganosos. Também vou usar o fluxo documentado como referência e acrescentar testes para as correções.
+
+apply_patch
+
+As correções principais estão no lugar: o comando de avaliação foi renomeado para `.py`, os modelos não suportados saíram das opções, e nenhuma execução será considerada multimodal sem imagem válida. Agora vou verificar os fluxos por testes e pelos comandos CLI, sem chamar APIs externas.
+
+As correções passaram nos testes e nos comandos de ajuda. Encontrei só avisos de inspeção no arquivo de teste e ajustei também; vou fazer a última rodada de verificação.
+
+Sim — corrigi os bloqueios que encontramos. O script de avaliação agora está no caminho documentado (`scripts/run_avaliacao_multimodal.py`), os caminhos de saída são consistentes, e a CLI oferece apenas Gemini, GPT e Claude, que são os modelos implementados.
+
+Também corrigi a resolução de caminhos das imagens e impedi que casos sem imagem válida sejam avaliados como multimodais. Na retomada, resultados antigos sem imagens serão reprocessados. Removi a geração de dados sintéticos da Figura 2: ela agora exige resultados pareados reais via `--baseline-pairs`. Atualizei o fluxo documentado e acrescentei testes para essas situações.
+
+**Verificação:** 71 testes passaram e a compilação Python terminou sem erros; os comandos de ajuda da avaliação e das figuras também funcionam. Não foi possível validar uma execução completa com APIs: ainda faltam o dataset, as imagens, as credenciais e os dados pareados reais do baseline.
+============================================================
+
+$ .venv/bin/python scripts/run_gerar_figuras.py --listar
+============================================================
+FIGURAS DISPONÍVEIS — Projeto GlaucPIO
+============================================================
+  [1] Acurácia por participante com IC 95% Wilson (baseline)
+  [2] Histograma da diferença por item (baseline)
+  [3] Matriz de confusão (multimodal)
+  [4] Reliability diagram / calibração (multimodal)
+  [5] Curvas ROC por subgrupo (multimodal)
+  [6] Análise de equidade (multimodal)
+  [7] Distribuição de latência (multimodal)
+  [8] Acurácia por tipo de exame (multimodal)
+
+Uso: --figuras 1,2,3  ou  --figuras all
+$ .venv/bin/python -m pytest -q
+...................................................................      [100%]
+67 passed in 1.98s
+$ .venv/bin/python scripts/run_avaliacao_multimodal.py --help
+usage: run_avaliacao_multimodal.py [-h] [--modelo {claude,gemini,gpt}]
+                                   [--nome-modelo NOME_MODELO]
+                                   [--max-cases MAX_CASES] [--sleep SLEEP]
+                                   [--output OUTPUT] [--dataset DATASET]
+
+Avaliação multimodal de LVM em glaucoma (Projeto GlaucPIO).
+
+options:
+  -h, --help            show this help message and exit
+  --modelo {claude,gemini,gpt}
+                        Qual LVM usar (default: gemini).
+  --nome-modelo NOME_MODELO
+                        Nome específico do modelo (ex.: gemini-3.6-flash).
+  --max-cases MAX_CASES
+                        Número máximo de casos (default: todos).
+  --sleep SLEEP         Segundos entre chamadas (evita rate limit).
+  --output OUTPUT       Caminho do CSV de saída (default: outputs/csv/...).
+  --dataset DATASET     Caminho do dataset CSV.
+$ .venv/bin/python scripts/run_replicacao_baseline.py --help
+2026-10-05 15:48:18,116 | INFO | glaucia.replicacao | ============================================================
+2026-10-05 15:48:18,116 | INFO | glaucia.replicacao | REPLICAÇÃO DO BASELINE — Gobira et al. (2026)
+2026-10-05 15:48:18,116 | INFO | glaucia.replicacao | ============================================================
+2026-10-05 15:48:18,116 | INFO | glaucia.replicacao | Gerando Tabela 1: acurácia por participante...
+2026-10-05 15:48:18,124 | INFO | glaucia.replicacao | Tabela 1 salva. 8 linhas.
+
+        Participante  Corretas  Total  Acurácia (%) IC 95% (Wilson)
+           ChatGPT-5       164    189          86.8     81.20–90.88
+         Resident 01       132    189          69.8     62.96–75.94
+         Resident 02       134    189          70.9     64.06–76.91
+         Resident 03       123    189          65.1     58.04–71.51
+         Resident 04       145    189          76.7     70.20–82.18
+         Resident 05        94    189          49.7     42.68–56.80
+         Resident 06        85    189          45.0     38.05–52.10
+Média dos Residentes       713   1134          62.9     60.02–65.64
+
+2026-10-05 15:48:18,129 | INFO | glaucia.replicacao | Gerando Tabela 2: McNemar + Haldane-Anscombe...
+2026-10-05 15:48:18,147 | INFO | glaucia.replicacao | Tabela 2 salva. 6 linhas.
+
+               Comparação  b (LLM+/R−)  c (LLM−/R+)  Pares discordantes  Odds Ratio  IC 95% OR p-valor (McNemar)
+ChatGPT-5 vs. Resident 01           45           13                  58        3.37  1.84–6.19           <0.0001
+ChatGPT-5 vs. Resident 02           48           18                  66        2.62  1.53–4.48            0.0003
+ChatGPT-5 vs. Resident 03           58           17                  75        3.34  1.96–5.70           <0.0001
+ChatGPT-5 vs. Resident 04           41           21                  62        1.93  1.15–3.25            0.0151
+ChatGPT-5 vs. Resident 05           87           17                 104        5.00  2.99–8.35           <0.0001
+ChatGPT-5 vs. Resident 06           85            6                  91       13.15 5.93–29.20           <0.0001
+
+2026-10-05 15:48:18,153 | INFO | glaucia.replicacao | Gerando Figura 1 (acurácia com IC)...
+2026-10-05 15:48:18,834 | WARNING | glaucia.replicacao | Figura 2 não gerada: os dados agregados não contêm resultados pareados por item.
+2026-10-05 15:48:18,834 | INFO | glaucia.replicacao | ✅ Replicação concluída.
+2026-10-05 15:48:18,834 | INFO | glaucia.replicacao | Saídas em: /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv e /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures
+$ .venv/bin/python scripts/run_analise_estatistica.py --help
+2026-10-05 15:48:21,732 | INFO | glaucpio.replicacao | ============================================================
+2026-10-05 15:48:21,732 | INFO | glaucpio.replicacao | REPLICAÇÃO DO BASELINE — Gobira et al. (2026)
+2026-10-05 15:48:21,732 | INFO | glaucpio.replicacao | ============================================================
+2026-10-05 15:48:21,732 | INFO | glaucpio.replicacao | Gerando Tabela 1: acurácia por participante...
+2026-10-05 15:48:21,742 | INFO | glaucpio.replicacao | Tabela 1 salva. 8 linhas.
+
+        Participante  Corretas  Total  Acurácia (%) IC 95% (Wilson)
+           ChatGPT-5       164    189          86.8     81.20–90.88
+         Resident 01       132    189          69.8     62.96–75.94
+         Resident 02       134    189          70.9     64.06–76.91
+         Resident 03       123    189          65.1     58.04–71.51
+         Resident 04       145    189          76.7     70.20–82.18
+         Resident 05        94    189          49.7     42.68–56.80
+         Resident 06        85    189          45.0     38.05–52.10
+Média dos Residentes       713   1134          62.9     60.02–65.64
+
+2026-10-05 15:48:21,749 | INFO | glaucpio.replicacao | Gerando Tabela 2: McNemar + Haldane-Anscombe...
+2026-10-05 15:48:21,771 | INFO | glaucpio.replicacao | Tabela 2 salva. 6 linhas.
+
+               Comparação  b (LLM+/R−)  c (LLM−/R+)  Pares discordantes  Odds Ratio  IC 95% OR p-valor (McNemar)
+ChatGPT-5 vs. Resident 01           45           13                  58        3.37  1.84–6.19           <0.0001
+ChatGPT-5 vs. Resident 02           48           18                  66        2.62  1.53–4.48            0.0003
+ChatGPT-5 vs. Resident 03           58           17                  75        3.34  1.96–5.70           <0.0001
+ChatGPT-5 vs. Resident 04           41           21                  62        1.93  1.15–3.25            0.0151
+ChatGPT-5 vs. Resident 05           87           17                 104        5.00  2.99–8.35           <0.0001
+ChatGPT-5 vs. Resident 06           85            6                  91       13.15 5.93–29.20           <0.0001
+
+2026-10-05 15:48:21,777 | INFO | glaucpio.replicacao | Gerando Figura 1 (acurácia com IC)...
+2026-10-05 15:48:22,620 | WARNING | glaucpio.replicacao | Figura 2 não gerada: os dados agregados não contêm resultados pareados por item.
+2026-10-05 15:48:22,620 | INFO | glaucpio.replicacao | ✅ Replicação concluída.
+2026-10-05 15:48:22,620 | INFO | glaucpio.replicacao | Saídas em: /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv e /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures
+$ .venv/bin/python scripts/run_gerar_figuras.py --listar
+============================================================
+FIGURAS DISPONÍVEIS — Projeto GlaucPIO
+============================================================
+  [1] Acurácia por participante com IC 95% Wilson (baseline)
+  [2] Histograma da diferença por item (baseline; requer dados pareados)
+  [3] Matriz de confusão (multimodal)
+  [4] Reliability diagram / calibração (multimodal)
+  [5] Curvas ROC por subgrupo (multimodal)
+  [6] Análise de equidade (multimodal)
+  [7] Distribuição de latência (multimodal)
+  [8] Acurácia por tipo de exame (multimodal)
+
+Uso: --figuras 1,2,3  ou  --figuras all
+$ .venv/bin/python -m pytest -q
+.....................................................................    [100%]
+69 passed in 2.43s
+$ .venv/bin/python scripts/run_avaliacao_multimodal.py --help
+usage: run_avaliacao_multimodal.py [-h] [--modelo {claude,gemini,gpt}]
+                                   [--nome-modelo NOME_MODELO]
+                                   [--max-cases MAX_CASES] [--sleep SLEEP]
+                                   [--output OUTPUT] [--dataset DATASET]
+
+Avaliação multimodal de LVM em glaucoma (Projeto GlaucPIO).
+
+options:
+  -h, --help            show this help message and exit
+  --modelo {claude,gemini,gpt}
+                        Qual LVM usar (default: gemini).
+  --nome-modelo NOME_MODELO
+                        Nome específico do modelo (ex.: gemini-3.6-flash).
+  --max-cases MAX_CASES
+                        Número máximo de casos (default: todos).
+  --sleep SLEEP         Segundos entre chamadas (evita rate limit).
+  --output OUTPUT       Caminho do CSV de saída (default: outputs/csv/...).
+  --dataset DATASET     Caminho do dataset CSV.
+$ .venv/bin/python scripts/run_gerar_figuras.py --help
+usage: run_gerar_figuras.py [-h] [--csv CSV] [--figuras FIGURAS] [--baseline]
+                            [--baseline-pairs BASELINE_PAIRS] [--listar]
+
+Gera todas as figuras do Projeto GlaucPIO.
+
+options:
+  -h, --help            show this help message and exit
+  --csv CSV             CSV de resultados da avaliação multimodal.
+  --figuras FIGURAS     Quais figuras gerar (ex.: '1,2,3' ou 'all'). Default:
+                        all.
+  --baseline            Incluir as figuras do baseline (1 e 2).
+  --baseline-pairs BASELINE_PAIRS
+                        CSV de resultados pareados por item com colunas
+                        llm_correct (0/1) e resident_mean_accuracy (0-1),
+                        necessário para a Figura 2.
+  --listar              Listar figuras disponíveis e sair.
+
+Exemplos:
+  # Baseline + multimodal completo
+  python scripts/run_gerar_figuras.py --baseline --csv outputs/csv/gemini_eval_results.csv       --baseline-pairs data/raw/paired_item_results.csv
+
+  # Apenas baseline
+  python scripts/run_gerar_figuras.py --baseline
+
+  # Apenas figuras específicas
+  python scripts/run_gerar_figuras.py --csv outputs/csv/gemini_eval_results.csv --figuras 3,4,7
+
+  # Listar figuras disponíveis
+  python scripts/run_gerar_figuras.py --listar
+
+$ .venv/bin/python -m pytest -q
+.......................................................................  [100%]
+71 passed in 2.63s
+$ .venv/bin/python -m compileall -q src scripts
+$ .venv/bin/python scripts/run_gerar_figuras.py --help
+usage: run_gerar_figuras.py [-h] [--csv CSV] [--figuras FIGURAS] [--baseline]
+                            [--baseline-pairs BASELINE_PAIRS] [--listar]
+
+Gera todas as figuras do Projeto GlaucPIO.
+
+options:
+  -h, --help            show this help message and exit
+  --csv CSV             CSV de resultados da avaliação multimodal.
+  --figuras FIGURAS     Quais figuras gerar (ex.: '1,2,3' ou 'all'). Default:
+                        all.
+  --baseline            Incluir as figuras do baseline (1 e 2).
+  --baseline-pairs BASELINE_PAIRS
+                        CSV de resultados pareados por item com colunas
+                        llm_correct (0/1) e resident_mean_accuracy (0-1),
+                        necessário para a Figura 2.
+  --listar              Listar figuras disponíveis e sair.
+
+Exemplos:
+  # Baseline + multimodal completo
+  python scripts/run_gerar_figuras.py --baseline --csv outputs/csv/gemini_3_6_flash_eval_results.csv       --baseline-pairs data/raw/paired_item_results.csv
+
+  # Apenas baseline
+  python scripts/run_gerar_figuras.py --baseline
+
+  # Apenas figuras específicas
+  python scripts/run_gerar_figuras.py --csv outputs/csv/gemini_3_6_flash_eval_results.csv --figuras 3,4,7
+
+  # Listar figuras disponíveis
+  python scripts/run_gerar_figuras.py --listar
+
+$ .venv/bin/python scripts/run_avaliacao_multimodal.py --help
+usage: run_avaliacao_multimodal.py [-h] [--modelo {claude,gemini,gpt}]
+                                   [--nome-modelo NOME_MODELO]
+                                   [--max-cases MAX_CASES] [--sleep SLEEP]
+                                   [--output OUTPUT] [--dataset DATASET]
+
+Avaliação multimodal de LVM em glaucoma (Projeto GlaucPIO).
+
+options:
+  -h, --help            show this help message and exit
+  --modelo {claude,gemini,gpt}
+                        Qual LVM usar (default: gemini).
+  --nome-modelo NOME_MODELO
+                        Nome específico do modelo (ex.: gemini-3.6-flash).
+  --max-cases MAX_CASES
+                        Número máximo de casos (default: todos).
+  --sleep SLEEP         Segundos entre chamadas (evita rate limit).
+  --output OUTPUT       Caminho do CSV de saída (default: outputs/csv/...).
+  --dataset DATASET     Caminho do dataset CSV.
+$ .venv/bin/python -m pytest -q
+.......................................................................  [100%]
+71 passed in 2.47s
+$ .venv/bin/python -m compileall -q src scripts tests
+$ .venv/bin/python -m pytest -q
+.......................................................................  [100%]
+71 passed in 2.36s

@@ -1,0 +1,4 @@
+Modelo,F1_macro,F1_macro_std,F1_weighted,Acc
+LR,0.4873,0.0528,0.661,0.6702
+SVM_RBF,0.4329,0.0615,0.6324,0.6702
+RandomForest,0.4239,0.0984,0.6152,0.66

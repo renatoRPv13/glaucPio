@@ -1,0 +1,11 @@
+Case_ID,Olho,Ground_Truth_Diagnosis,Modelo_Resposta,Classificacao_Extraida,Correto,Confianca_Declarada,Latency_s,N_Images,Timestamp,Status
+002-OD,OD,Glaucomatous Optic Neuropathy (GON),,,False,,,0,2026-10-23T18:44:43.522944,ERROR: ClientError
+004-OD,OD,Glaucoma Suspect (SUSP),,,False,,,0,2026-10-23T18:44:48.712920,ERROR: ClientError
+005-OD,OD,Glaucoma Suspect (SUSP),,,False,,,0,2026-10-23T18:44:54.055471,ERROR: ClientError
+006-OD,OD,Glaucomatous Optic Neuropathy (GON),,,False,,,0,2026-10-23T18:44:59.223575,ERROR: ClientError
+007-OD,OD,Glaucomatous Optic Neuropathy (GON),,,False,,,0,2026-10-23T18:45:04.401752,ERROR: ClientError
+008-OD,OD,Glaucomatous Optic Neuropathy (GON),,,False,,,0,2026-10-23T18:45:09.546913,ERROR: ClientError
+009-OD,OD,Glaucomatous Optic Neuropathy (GON),,,False,,,0,2026-10-23T18:45:14.696781,ERROR: ClientError
+010-OD,OD,Glaucoma Suspect (SUSP),,,False,,,0,2026-10-23T18:45:19.840897,ERROR: ClientError
+013-OD,OD,Glaucoma Suspect (SUSP),,,False,,,0,2026-10-23T18:45:25.045782,ERROR: ClientError
+014-OD,OD,Glaucoma Suspect (SUSP),,,False,,,0,2026-10-23T18:45:30.216252,ERROR: ClientError

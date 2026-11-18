@@ -1,0 +1,9 @@
+Participante,Corretas,Total,Acurácia (%),IC 95% (Wilson)
+ChatGPT-5,164,189,86.8,81.20–90.88
+Resident 01,132,189,69.8,62.96–75.94
+Resident 02,134,189,70.9,64.06–76.91
+Resident 03,123,189,65.1,58.04–71.51
+Resident 04,145,189,76.7,70.20–82.18
+Resident 05,94,189,49.7,42.68–56.80
+Resident 06,85,189,45.0,38.05–52.10
+Média dos Residentes,713,1134,62.9,60.02–65.64

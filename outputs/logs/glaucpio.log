@@ -1,0 +1,568 @@
+2026-10-07 15:23:43,386 | INFO | glaucPIO.figuras | ============================================================
+2026-10-07 15:23:43,386 | INFO | glaucPIO.figuras | GERAÇÃO DE FIGURAS — PROJETO GlaucPIO
+2026-10-07 15:23:43,387 | INFO | glaucPIO.figuras | ============================================================
+2026-10-07 15:23:43,387 | INFO | glaucPIO.figuras | CSV:              /home/rpvselva/IdeaP
+2026-10-26 16:45:12,690 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:45:12,694 | INFO | glaucpio.fase2 | FASE 2 — BASELINE MELHORADO (PAPILA)
+2026-10-26 16:45:12,694 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:45:12,694 | INFO | glaucpio.fase2 | ✅ Dataset encontrado: /home/rpvselva/IdeaProjects/glaucPIO/data/raw/glaucoma_papila_dataset.csv
+2026-10-26 16:45:12,715 | INFO | glaucpio.fase2 |    Shape: (488, 19)
+2026-10-26 16:45:12,715 | INFO | glaucpio.fase2 |    Colunas: ['Case_ID', 'Olho', 'Patient_ID', 'Ground_Truth_Diagnosis', 'Multimodal_Prompt', 'Fundus_Image_Path', 'Idade', 'Sexo', 'IOP_Pneumatic', 'IOP_Perkins', 'Paquimetria', 'Comprimento_Axial', 'VF_Mean_Deviation', 'Status_Cristalino', 'Dioptria_1', 'Dioptria_2', 'Astigmatismo', 'Ground_Truth_Code', 'Patient_ID_Raw']
+2026-10-26 16:45:12,715 | INFO | glaucpio.fase2 | Carregando imagens...
+2026-10-26 16:45:57,687 | INFO | glaucpio.fase2 | ✅ Dados carregados:
+2026-10-26 16:45:57,687 | INFO | glaucpio.fase2 |    X: (488, 12288)
+2026-10-26 16:45:57,687 | INFO | glaucpio.fase2 |    y: (488,)
+2026-10-26 16:45:57,692 | INFO | glaucpio.fase2 |    Distribuição: {np.int64(0): np.int64(333), np.int64(1): np.int64(87), np.int64(2): np.int64(68)}
+2026-10-26 16:45:57,693 | WARNING | glaucpio.fase2 | ⚠️  XGBoost não instalado — rode: pip install xgboost
+2026-10-26 16:45:57,693 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:45:57,693 | INFO | glaucpio.fase2 | VALIDAÇÃO CRUZADA — 5-FOLD
+2026-10-26 16:45:57,693 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:45:57,693 | INFO | glaucpio.fase2 | Treinando LogisticRegression...
+2026-10-26 16:46:06,819 | INFO | glaucpio.fase2 |   LogisticRegression: Acc = 0.6967 ± 0.0279 | F1 = 0.6827 ± 0.0303
+2026-10-26 16:46:06,819 | INFO | glaucpio.fase2 | Treinando SVM_RBF...
+2026-10-26 16:46:14,496 | INFO | glaucpio.fase2 |   SVM_RBF: Acc = 0.6558 ± 0.0467 | F1 = 0.6285 ± 0.0461
+2026-10-26 16:46:14,496 | INFO | glaucpio.fase2 | Treinando RandomForest...
+2026-10-26 16:46:36,063 | INFO | glaucpio.fase2 |   RandomForest: Acc = 0.6660 ± 0.0145 | F1 = 0.5950 ± 0.0129
+2026-10-26 16:46:36,072 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:46:36,072 | INFO | glaucpio.fase2 | AVALIAÇÃO NO TEST SET (20%)
+2026-10-26 16:46:36,072 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:46:36,073 | INFO | glaucpio.fase2 | Treinando LogisticRegression...
+2026-10-26 16:46:38,985 | INFO | glaucpio.fase2 |   LogisticRegression: Acc = 0.6327
+2026-10-26 16:46:38,985 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.83      0.78      0.80        67
+     suspect       0.36      0.29      0.32        17
+    glaucoma       0.24      0.36      0.29        14
+
+    accuracy                           0.63        98
+   macro avg       0.47      0.48      0.47        98
+weighted avg       0.66      0.63      0.64        98
+
+2026-10-26 16:46:38,985 | INFO | glaucpio.fase2 | Treinando SVM_RBF...
+2026-10-26 16:46:40,946 | INFO | glaucpio.fase2 |   SVM_RBF: Acc = 0.6735
+2026-10-26 16:46:40,946 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.78      0.88      0.83        67
+     suspect       0.33      0.12      0.17        17
+    glaucoma       0.31      0.36      0.33        14
+
+    accuracy                           0.67        98
+   macro avg       0.47      0.45      0.44        98
+weighted avg       0.63      0.67      0.64        98
+
+2026-10-26 16:46:40,946 | INFO | glaucpio.fase2 | Treinando RandomForest...
+2026-10-26 16:46:49,069 | INFO | glaucpio.fase2 |   RandomForest: Acc = 0.7143
+2026-10-26 16:46:49,070 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.71      1.00      0.83        67
+     suspect       0.00      0.00      0.00        17
+    glaucoma       0.75      0.21      0.33        14
+
+    accuracy                           0.71        98
+   macro avg       0.49      0.40      0.39        98
+weighted avg       0.59      0.71      0.62        98
+
+2026-10-26 16:46:49,114 | INFO | glaucpio.fase2 | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/fase2_baseline_resultados.csv
+2026-10-26 16:46:49,115 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:46:49,115 | INFO | glaucpio.fase2 | RESUMO FINAL
+2026-10-26 16:46:49,115 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:46:49,120 | INFO | glaucpio.fase2 | 
+            Modelo  Acc_mean  Acc_std  F1_mean  F1_std  Acc_test
+      RandomForest    0.6660   0.0145   0.5950  0.0129    0.7143
+           SVM_RBF    0.6558   0.0467   0.6285  0.0461    0.6735
+LogisticRegression    0.6967   0.0279   0.6827  0.0303    0.6327
+2026-10-26 16:46:49,120 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:46:49,120 | INFO | glaucpio.fase2 | ✅ Fase 2 concluída.
+2026-10-26 16:48:50,117 | WARNING | glaucpio.fase2 | ⚠️  XGBoost não instalado — rode: pip install xgboost
+2026-10-26 16:49:33,837 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:49:33,837 | INFO | glaucpio.fase2 | FASE 2 — BASELINE MELHORADO (PAPILA)
+2026-10-26 16:49:33,837 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:49:33,837 | INFO | glaucpio.fase2 | ✅ Dataset encontrado: /home/rpvselva/IdeaProjects/glaucPIO/data/raw/glaucoma_papila_dataset.csv
+2026-10-26 16:49:33,843 | INFO | glaucpio.fase2 |    Shape: (488, 19)
+2026-10-26 16:49:33,843 | INFO | glaucpio.fase2 |    Colunas: ['Case_ID', 'Olho', 'Patient_ID', 'Ground_Truth_Diagnosis', 'Multimodal_Prompt', 'Fundus_Image_Path', 'Idade', 'Sexo', 'IOP_Pneumatic', 'IOP_Perkins', 'Paquimetria', 'Comprimento_Axial', 'VF_Mean_Deviation', 'Status_Cristalino', 'Dioptria_1', 'Dioptria_2', 'Astigmatismo', 'Ground_Truth_Code', 'Patient_ID_Raw']
+2026-10-26 16:49:33,843 | INFO | glaucpio.fase2 | Carregando imagens...
+2026-10-26 16:50:17,366 | INFO | glaucpio.fase2 | ✅ Dados carregados:
+2026-10-26 16:50:17,366 | INFO | glaucpio.fase2 |    X: (488, 12288)
+2026-10-26 16:50:17,366 | INFO | glaucpio.fase2 |    y: (488,)
+2026-10-26 16:50:17,366 | INFO | glaucpio.fase2 |    Distribuição: {np.int64(0): np.int64(333), np.int64(1): np.int64(87), np.int64(2): np.int64(68)}
+2026-10-26 16:50:17,367 | WARNING | glaucpio.fase2 | ⚠️  XGBoost não instalado — rode: pip install xgboost
+2026-10-26 16:50:17,367 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:50:17,367 | INFO | glaucpio.fase2 | VALIDAÇÃO CRUZADA — 5-FOLD
+2026-10-26 16:50:17,367 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:50:17,367 | INFO | glaucpio.fase2 | Treinando LogisticRegression...
+2026-10-26 16:50:29,725 | INFO | glaucpio.fase2 |   LogisticRegression: Acc = 0.6967 ± 0.0279 | F1 = 0.6827 ± 0.0303
+2026-10-26 16:50:29,726 | INFO | glaucpio.fase2 | Treinando SVM_RBF...
+2026-10-26 16:50:38,411 | INFO | glaucpio.fase2 |   SVM_RBF: Acc = 0.6946 ± 0.0170 | F1 = 0.5918 ± 0.0310
+2026-10-26 16:50:38,411 | INFO | glaucpio.fase2 | Treinando RandomForest...
+2026-10-26 16:50:59,280 | INFO | glaucpio.fase2 |   RandomForest: Acc = 0.6660 ± 0.0145 | F1 = 0.5950 ± 0.0129
+2026-10-26 16:50:59,292 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:50:59,293 | INFO | glaucpio.fase2 | AVALIAÇÃO NO TEST SET (20%)
+2026-10-26 16:50:59,293 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:50:59,293 | INFO | glaucpio.fase2 | Treinando LogisticRegression...
+2026-10-26 16:51:01,325 | INFO | glaucpio.fase2 |   LogisticRegression: Acc = 0.6327
+2026-10-26 16:51:01,325 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.83      0.78      0.80        67
+     suspect       0.36      0.29      0.32        17
+    glaucoma       0.24      0.36      0.29        14
+
+    accuracy                           0.63        98
+   macro avg       0.47      0.48      0.47        98
+weighted avg       0.66      0.63      0.64        98
+
+2026-10-26 16:51:01,325 | INFO | glaucpio.fase2 | Treinando SVM_RBF...
+2026-10-26 16:51:03,076 | INFO | glaucpio.fase2 |   SVM_RBF: Acc = 0.6837
+2026-10-26 16:51:03,076 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.71      0.99      0.82        67
+     suspect       0.50      0.06      0.11        17
+    glaucoma       0.00      0.00      0.00        14
+
+    accuracy                           0.68        98
+   macro avg       0.40      0.35      0.31        98
+weighted avg       0.57      0.68      0.58        98
+
+2026-10-26 16:51:03,076 | INFO | glaucpio.fase2 | Treinando RandomForest...
+2026-10-26 16:51:07,668 | INFO | glaucpio.fase2 |   RandomForest: Acc = 0.7143
+2026-10-26 16:51:07,668 | INFO | glaucpio.fase2 | 
+              precision    recall  f1-score   support
+
+      normal       0.71      1.00      0.83        67
+     suspect       0.00      0.00      0.00        17
+    glaucoma       0.75      0.21      0.33        14
+
+    accuracy                           0.71        98
+   macro avg       0.49      0.40      0.39        98
+weighted avg       0.59      0.71      0.62        98
+
+2026-10-26 16:51:07,673 | INFO | glaucpio.fase2 | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/fase2_baseline_resultados.csv
+2026-10-26 16:51:07,673 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:51:07,674 | INFO | glaucpio.fase2 | RESUMO FINAL
+2026-10-26 16:51:07,674 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:51:07,679 | INFO | glaucpio.fase2 | 
+            Modelo  Acc_mean  Acc_std  F1_mean  F1_std  Acc_test
+      RandomForest    0.6660   0.0145   0.5950  0.0129    0.7143
+           SVM_RBF    0.6946   0.0170   0.5918  0.0310    0.6837
+LogisticRegression    0.6967   0.0279   0.6827  0.0303    0.6327
+2026-10-26 16:51:07,679 | INFO | glaucpio.fase2 | ============================================================
+2026-10-26 16:51:07,680 | INFO | glaucpio.fase2 | ✅ Fase 2 concluída.
+2026-10-26 17:03:26,553 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:03:26,553 | INFO | glaucpio.fase2_v2 | FASE 2 v2 — BASELINE MELHORADO (PAPILA)
+2026-10-26 17:03:26,554 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:03:26,559 | INFO | glaucpio.fase2_v2 | Dataset: (488, 19)
+2026-10-26 17:04:09,440 | INFO | glaucpio.fase2_v2 | X combinado: (488, 12295) (imagens + 7 clínicas)
+2026-10-26 17:04:09,441 | INFO | glaucpio.fase2_v2 | y: {np.int64(0): np.int64(333), np.int64(1): np.int64(87), np.int64(2): np.int64(68)}
+2026-10-26 17:04:09,796 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:04:09,797 | INFO | glaucpio.fase2_v2 | VALIDAÇÃO CRUZADA — 10-FOLD (F1 MACRO)
+2026-10-26 17:04:09,797 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:04:09,797 | INFO | glaucpio.fase2_v2 | Treinando LR...
+2026-10-26 17:04:52,454 | INFO | glaucpio.fase2_v2 |   LR: F1_macro = 0.4873 ± 0.0528 | F1_weighted = 0.6610 | Acc = 0.6702
+2026-10-26 17:04:52,455 | INFO | glaucpio.fase2_v2 | Treinando SVM_RBF...
+2026-10-26 17:05:41,693 | INFO | glaucpio.fase2_v2 |   SVM_RBF: F1_macro = 0.4329 ± 0.0615 | F1_weighted = 0.6324 | Acc = 0.6702
+2026-10-26 17:05:41,693 | INFO | glaucpio.fase2_v2 | Treinando RandomForest...
+2026-10-26 17:07:23,656 | INFO | glaucpio.fase2_v2 |   RandomForest: F1_macro = 0.4239 ± 0.0984 | F1_weighted = 0.6152 | Acc = 0.6600
+2026-10-26 17:07:23,663 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:07:23,663 | INFO | glaucpio.fase2_v2 | RESUMO FINAL (F1 macro é a métrica principal)
+2026-10-26 17:07:23,663 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:07:23,671 | INFO | glaucpio.fase2_v2 | 
+      Modelo  F1_macro  F1_macro_std  F1_weighted    Acc
+          LR    0.4873        0.0528       0.6610 0.6702
+     SVM_RBF    0.4329        0.0615       0.6324 0.6702
+RandomForest    0.4239        0.0984       0.6152 0.6600
+2026-10-26 17:07:23,672 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:07:23,672 | INFO | glaucpio.fase2_v2 | ✅ Fase 2 v2 concluída.
+2026-10-26 17:20:18,008 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:20:18,009 | INFO | glaucpio.fase2_v2 | FASE 2 v2 — BASELINE MELHORADO (PAPILA)
+2026-10-26 17:20:18,009 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:20:18,029 | INFO | glaucpio.fase2_v2 | Dataset: (488, 19)
+2026-10-26 17:21:01,831 | INFO | glaucpio.fase2_v2 | X combinado: (488, 12295) (imagens + 7 clínicas)
+2026-10-26 17:21:01,832 | INFO | glaucpio.fase2_v2 | y: {np.int64(0): np.int64(333), np.int64(1): np.int64(87), np.int64(2): np.int64(68)}
+2026-10-26 17:21:02,016 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:21:02,016 | INFO | glaucpio.fase2_v2 | VALIDAÇÃO CRUZADA — 10-FOLD (F1 MACRO)
+2026-10-26 17:21:02,016 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:21:02,016 | INFO | glaucpio.fase2_v2 | Treinando LR...
+2026-10-26 17:21:43,833 | INFO | glaucpio.fase2_v2 |   LR: F1_macro = 0.4873 ± 0.0528 | F1_weighted = 0.6610 | Acc = 0.6702
+2026-10-26 17:21:43,834 | INFO | glaucpio.fase2_v2 | Treinando SVM_RBF...
+2026-10-26 17:22:24,830 | INFO | glaucpio.fase2_v2 |   SVM_RBF: F1_macro = 0.4329 ± 0.0615 | F1_weighted = 0.6324 | Acc = 0.6702
+2026-10-26 17:22:24,830 | INFO | glaucpio.fase2_v2 | Treinando RandomForest...
+2026-10-26 17:24:05,055 | INFO | glaucpio.fase2_v2 |   RandomForest: F1_macro = 0.4239 ± 0.0984 | F1_weighted = 0.6152 | Acc = 0.6600
+2026-10-26 17:24:05,076 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:24:05,076 | INFO | glaucpio.fase2_v2 | RESUMO FINAL (F1 macro é a métrica principal)
+2026-10-26 17:24:05,076 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:24:05,090 | INFO | glaucpio.fase2_v2 | 
+      Modelo  F1_macro  F1_macro_std  F1_weighted    Acc
+          LR    0.4873        0.0528       0.6610 0.6702
+     SVM_RBF    0.4329        0.0615       0.6324 0.6702
+RandomForest    0.4239        0.0984       0.6152 0.6600
+2026-10-26 17:24:05,090 | INFO | glaucpio.fase2_v2 | ============================================================
+2026-10-26 17:24:05,091 | INFO | glaucpio.fase2_v2 | ✅ Fase 2 v2 concluída.
+2026-10-26 17:52:15,246 | INFO | glaucpio.resnet | Casos com imagem: 488
+2026-10-26 17:52:15,277 | INFO | glaucpio.resnet | Train: 390 | Test: 98
+2026-10-26 17:52:15,280 | INFO | glaucpio.resnet | Device: cpu
+2026-10-26 17:54:17,410 | INFO | glaucpio.resnet | Casos com imagem: 488
+2026-10-26 17:54:17,441 | INFO | glaucpio.resnet | Train: 390 | Test: 98
+2026-10-26 17:54:17,442 | INFO | glaucpio.resnet | Device: cpu | num_workers=0
+2026-10-26 17:55:44,827 | INFO | glaucpio.resnet | Epoch  1/30 | Loss: 1.0887 | Train: 0.4154 | Val Acc: 0.5714 | F1 macro: 0.4014
+2026-10-26 17:55:44,904 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.4014
+2026-10-26 17:57:14,016 | INFO | glaucpio.resnet | Epoch  2/30 | Loss: 0.8173 | Train: 0.6615 | Val Acc: 0.4388 | F1 macro: 0.4678
+2026-10-26 17:57:14,058 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.4678
+2026-10-26 17:58:38,286 | INFO | glaucpio.resnet | Epoch  3/30 | Loss: 0.6837 | Train: 0.7410 | Val Acc: 0.6122 | F1 macro: 0.5448
+2026-10-26 17:58:38,329 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5448
+2026-10-26 18:00:13,760 | INFO | glaucpio.resnet | Epoch  4/30 | Loss: 0.5607 | Train: 0.7846 | Val Acc: 0.6939 | F1 macro: 0.5963
+2026-10-26 18:00:13,822 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5963
+2026-10-26 18:01:38,722 | INFO | glaucpio.resnet | Epoch  5/30 | Loss: 0.5054 | Train: 0.8077 | Val Acc: 0.6633 | F1 macro: 0.5994
+2026-10-26 18:01:38,767 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5994
+2026-10-26 18:03:01,971 | INFO | glaucpio.resnet | Epoch  6/30 | Loss: 0.4069 | Train: 0.8641 | Val Acc: 0.6837 | F1 macro: 0.6193
+2026-10-26 18:03:02,016 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6193
+2026-10-26 18:04:24,929 | INFO | glaucpio.resnet | Epoch  7/30 | Loss: 0.3155 | Train: 0.8718 | Val Acc: 0.7551 | F1 macro: 0.6635
+2026-10-26 18:04:24,997 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6635
+2026-10-26 18:05:49,110 | INFO | glaucpio.resnet | Epoch  8/30 | Loss: 0.2707 | Train: 0.8821 | Val Acc: 0.7347 | F1 macro: 0.6116
+2026-10-26 18:07:12,300 | INFO | glaucpio.resnet | Epoch  9/30 | Loss: 0.1824 | Train: 0.9385 | Val Acc: 0.7449 | F1 macro: 0.6509
+2026-10-26 18:08:35,954 | INFO | glaucpio.resnet | Epoch 10/30 | Loss: 0.2007 | Train: 0.9513 | Val Acc: 0.7551 | F1 macro: 0.6823
+2026-10-26 18:08:36,000 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6823
+2026-10-26 18:10:00,502 | INFO | glaucpio.resnet | Epoch 11/30 | Loss: 0.1559 | Train: 0.9641 | Val Acc: 0.7143 | F1 macro: 0.6049
+2026-10-26 18:11:23,939 | INFO | glaucpio.resnet | Epoch 12/30 | Loss: 0.1070 | Train: 0.9718 | Val Acc: 0.6531 | F1 macro: 0.6037
+2026-10-26 18:12:46,989 | INFO | glaucpio.resnet | Epoch 13/30 | Loss: 0.1311 | Train: 0.9718 | Val Acc: 0.7041 | F1 macro: 0.5373
+2026-10-26 18:14:11,707 | INFO | glaucpio.resnet | Epoch 14/30 | Loss: 0.1270 | Train: 0.9667 | Val Acc: 0.7041 | F1 macro: 0.6128
+2026-10-26 18:15:34,791 | INFO | glaucpio.resnet | Epoch 15/30 | Loss: 0.1266 | Train: 0.9795 | Val Acc: 0.7041 | F1 macro: 0.5967
+2026-10-26 18:17:00,316 | INFO | glaucpio.resnet | Epoch 16/30 | Loss: 0.2181 | Train: 0.9333 | Val Acc: 0.7143 | F1 macro: 0.6152
+2026-10-26 18:18:23,650 | INFO | glaucpio.resnet | Epoch 17/30 | Loss: 0.1016 | Train: 0.9667 | Val Acc: 0.6224 | F1 macro: 0.5340
+2026-10-26 18:19:46,535 | INFO | glaucpio.resnet | Epoch 18/30 | Loss: 0.0979 | Train: 0.9692 | Val Acc: 0.7245 | F1 macro: 0.6369
+2026-10-26 18:21:11,881 | INFO | glaucpio.resnet | Epoch 19/30 | Loss: 0.0952 | Train: 0.9641 | Val Acc: 0.7143 | F1 macro: 0.6343
+2026-10-26 18:22:35,351 | INFO | glaucpio.resnet | Epoch 20/30 | Loss: 0.0519 | Train: 0.9872 | Val Acc: 0.7143 | F1 macro: 0.6167
+2026-10-26 18:24:04,721 | INFO | glaucpio.resnet | Epoch 21/30 | Loss: 0.0776 | Train: 0.9795 | Val Acc: 0.7143 | F1 macro: 0.6255
+2026-10-26 18:25:35,465 | INFO | glaucpio.resnet | Epoch 22/30 | Loss: 0.0361 | Train: 0.9949 | Val Acc: 0.7551 | F1 macro: 0.6770
+2026-10-26 18:27:00,634 | INFO | glaucpio.resnet | Epoch 23/30 | Loss: 0.0641 | Train: 0.9923 | Val Acc: 0.6837 | F1 macro: 0.6012
+2026-10-26 18:28:24,530 | INFO | glaucpio.resnet | Epoch 24/30 | Loss: 0.0341 | Train: 0.9974 | Val Acc: 0.6939 | F1 macro: 0.6249
+2026-10-26 18:29:47,411 | INFO | glaucpio.resnet | Epoch 25/30 | Loss: 0.0270 | Train: 0.9974 | Val Acc: 0.7041 | F1 macro: 0.6202
+2026-10-26 18:31:11,657 | INFO | glaucpio.resnet | Epoch 26/30 | Loss: 0.0544 | Train: 0.9974 | Val Acc: 0.7551 | F1 macro: 0.6511
+2026-10-26 18:32:34,999 | INFO | glaucpio.resnet | Epoch 27/30 | Loss: 0.0231 | Train: 0.9974 | Val Acc: 0.8061 | F1 macro: 0.7394
+2026-10-26 18:32:35,056 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.7394
+2026-10-26 18:33:58,526 | INFO | glaucpio.resnet | Epoch 28/30 | Loss: 0.0793 | Train: 0.9769 | Val Acc: 0.7959 | F1 macro: 0.7161
+2026-10-26 18:35:22,791 | INFO | glaucpio.resnet | Epoch 29/30 | Loss: 0.0421 | Train: 0.9846 | Val Acc: 0.7653 | F1 macro: 0.6668
+2026-10-26 18:36:46,723 | INFO | glaucpio.resnet | Epoch 30/30 | Loss: 0.0654 | Train: 0.9872 | Val Acc: 0.7551 | F1 macro: 0.6720
+2026-10-26 18:36:46,723 | INFO | glaucpio.resnet | ============================================================
+2026-10-26 18:36:46,723 | INFO | glaucpio.resnet | RELATÓRIO FINAL — RESNET-18
+2026-10-26 18:36:46,723 | INFO | glaucpio.resnet | ============================================================
+2026-10-26 18:36:46,732 | INFO | glaucpio.resnet | 
+              precision    recall  f1-score   support
+
+      normal       0.85      0.82      0.83        67
+     suspect       0.69      0.65      0.67        17
+    glaucoma       0.47      0.57      0.52        14
+
+    accuracy                           0.76        98
+   macro avg       0.67      0.68      0.67        98
+weighted avg       0.76      0.76      0.76        98
+
+2026-10-26 18:36:46,734 | INFO | glaucpio.resnet | 
+Matriz de confusão:
+[[55  4  8]
+ [ 5 11  1]
+ [ 5  1  8]]
+2026-10-26 18:36:46,734 | INFO | glaucpio.resnet | 
+Melhor F1 macro: 0.7394
+2026-10-26 18:36:46,738 | INFO | glaucpio.resnet | 
+→ /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_historico.csv
+2026-10-26 18:36:46,738 | INFO | glaucpio.resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_predicoes.csv
+2026-10-26 18:36:46,738 | INFO | glaucpio.resnet | ============================================================
+2026-10-26 20:13:05,796 | INFO | glaucpio.curvas | Gerando curvas de aprendizado...
+2026-10-26 20:13:05,799 | INFO | glaucpio.curvas | Histórico: 30 épocas
+2026-10-26 20:13:07,005 | INFO | glaucpio.curvas | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_curvas.png
+2026-10-26 20:13:07,766 | INFO | glaucpio.curvas | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_curvas_artigo.png
+2026-10-26 20:13:07,766 | INFO | glaucpio.curvas | ✅ Curvas geradas.
+2026-10-26 20:14:54,836 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-26 20:14:54,836 | INFO | glaucpio.calibracao_resnet | AVALIAÇÃO DE CALIBRAÇÃO — RESNET-18
+2026-10-26 20:14:54,836 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-26 20:14:54,840 | INFO | glaucpio.calibracao_resnet | Predições carregadas: 98 casos
+2026-10-26 20:14:54,840 | INFO | glaucpio.calibracao_resnet | Gerando reliability diagram...
+2026-10-26 20:14:55,489 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_reliability.png
+2026-10-26 20:14:55,489 | INFO | glaucpio.calibracao_resnet | Gerando curvas ROC...
+2026-10-26 20:14:55,996 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_roc.png
+2026-10-26 20:14:55,996 | INFO | glaucpio.calibracao_resnet | Gerando matriz de confusão...
+2026-10-26 20:14:56,820 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_matriz_confusao.png
+2026-10-26 20:14:56,849 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_calibracao.csv
+2026-10-26 20:14:56,862 | INFO | glaucpio.calibracao_resnet | 
+   Modelo  F1_macro  F1_weighted  Accuracy    ECE  Brier  AUC_normal  AUC_suspect  AUC_glaucoma  AUC_macro
+ResNet-18     0.672       0.7591    0.7551 0.1082 0.1644      0.8517       0.8998         0.852     0.8678
+2026-10-26 20:14:56,862 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-26 20:14:56,862 | INFO | glaucpio.calibracao_resnet | ✅ Avaliação de calibração concluída.
+2026-10-27 17:51:35,393 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 17:51:35,394 | INFO | glaucpio.calibracao_resnet | AVALIAÇÃO DE CALIBRAÇÃO — RESNET-18
+2026-10-27 17:51:35,394 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 17:51:35,410 | INFO | glaucpio.calibracao_resnet | Predições carregadas: 98 casos
+2026-10-27 17:51:35,410 | INFO | glaucpio.calibracao_resnet | Gerando reliability diagram...
+2026-10-27 17:51:36,162 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_reliability.png
+2026-10-27 17:51:36,162 | INFO | glaucpio.calibracao_resnet | Gerando curvas ROC...
+2026-10-27 17:51:36,764 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_roc.png
+2026-10-27 17:51:36,764 | INFO | glaucpio.calibracao_resnet | Gerando matriz de confusão...
+2026-10-27 17:51:37,686 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_matriz_confusao.png
+2026-10-27 17:51:37,702 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_calibracao.csv
+2026-10-27 17:51:37,716 | INFO | glaucpio.calibracao_resnet | 
+   Modelo  F1_macro  F1_weighted  Accuracy    ECE  Brier  AUC_normal  AUC_suspect  AUC_glaucoma  AUC_macro
+ResNet-18     0.672       0.7591    0.7551 0.1082 0.1644      0.8517       0.8998         0.852     0.8678
+2026-10-27 17:51:37,716 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 17:51:37,716 | INFO | glaucpio.calibracao_resnet | ✅ Avaliação de calibração concluída.
+2026-10-27 17:52:07,501 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:52:07,501 | INFO | glaucpio.treinar | TREINAMENTO DE MODELOS — GlaucPIO
+2026-10-27 17:52:07,501 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:52:07,518 | INFO | glaucpio.treinar | Dataset carregado: (488, 19)
+2026-10-27 17:52:54,010 | INFO | glaucpio.treinar | X: (488, 12288) | y: (488,) | classes: [333  87  68]
+2026-10-27 17:52:54,011 | WARNING | glaucpio.treinar | XGBoost não instalado — pulando.
+2026-10-27 17:52:54,011 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:52:54,011 | INFO | glaucpio.treinar | VALIDAÇÃO CRUZADA — 5-FOLD ESTRATIFICADO
+2026-10-27 17:52:54,011 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:52:54,011 | INFO | glaucpio.treinar | Treinando LogisticRegression...
+2026-10-27 17:53:04,187 | INFO | glaucpio.treinar |   LogisticRegression: Acc = 0.6967 ± 0.0279 | F1 = 0.6827 ± 0.0303
+2026-10-27 17:53:04,187 | INFO | glaucpio.treinar | Treinando SVM_RBF...
+2026-10-27 17:53:14,891 | INFO | glaucpio.treinar |   SVM_RBF: Acc = 0.6558 ± 0.0467 | F1 = 0.6285 ± 0.0461
+2026-10-27 17:53:14,891 | INFO | glaucpio.treinar | Treinando RandomForest...
+2026-10-27 17:53:36,699 | INFO | glaucpio.treinar |   RandomForest: Acc = 0.6660 ± 0.0145 | F1 = 0.5950 ± 0.0129
+2026-10-27 17:53:36,708 | INFO | glaucpio.treinar | Treinando LogisticRegression no split final...
+2026-10-27 17:53:39,069 | INFO | glaucpio.treinar |   LogisticRegression: Acc = 0.6327 | F1 = 0.6437
+2026-10-27 17:53:39,069 | INFO | glaucpio.treinar | Treinando SVM_RBF no split final...
+2026-10-27 17:53:41,232 | INFO | glaucpio.treinar |   SVM_RBF: Acc = 0.6735 | F1 = 0.6419
+2026-10-27 17:53:41,232 | INFO | glaucpio.treinar | Treinando RandomForest no split final...
+2026-10-27 17:53:49,771 | INFO | glaucpio.treinar |   RandomForest: Acc = 0.7143 | F1 = 0.6166
+2026-10-27 17:53:59,640 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:53:59,640 | INFO | glaucpio.treinar | DEEP LEARNING — RESNET-18 (TRANSFER LEARNING)
+2026-10-27 17:53:59,641 | INFO | glaucpio.treinar | ============================================================
+2026-10-27 17:53:59,659 | INFO | glaucpio.treinar | Casos com imagem: 488
+2026-10-27 17:53:59,730 | INFO | glaucpio.treinar | Device: cpu
+2026-10-27 18:04:01,100 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:04:01,100 | INFO | glaucpio.calibracao | AVALIAÇÃO DE CALIBRAÇÃO — GlaucPIO
+2026-10-27 18:04:01,100 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:04:01,100 | ERROR | glaucpio.calibracao | Predições não encontradas: /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/predicoes.npz
+2026-10-27 18:04:01,100 | ERROR | glaucpio.calibracao | Rode primeiro: python scripts/treinar_modelos.py
+2026-10-27 18:04:33,091 | INFO | glaucpio.resnet | Casos com imagem: 488
+2026-10-27 18:04:33,123 | INFO | glaucpio.resnet | Train: 390 | Test: 98
+2026-10-27 18:04:33,124 | INFO | glaucpio.resnet | Device: cpu | num_workers=0
+2026-10-27 18:05:58,477 | INFO | glaucpio.resnet | Epoch  1/30 | Loss: 1.0194 | Train: 0.5179 | Val Acc: 0.6327 | F1 macro: 0.3936
+2026-10-27 18:05:58,559 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.3936
+2026-10-27 18:07:22,913 | INFO | glaucpio.resnet | Epoch  2/30 | Loss: 0.7176 | Train: 0.6641 | Val Acc: 0.5612 | F1 macro: 0.5022
+2026-10-27 18:07:22,955 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5022
+2026-10-27 18:08:46,937 | INFO | glaucpio.resnet | Epoch  3/30 | Loss: 0.6617 | Train: 0.7564 | Val Acc: 0.6837 | F1 macro: 0.5908
+2026-10-27 18:08:46,983 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5908
+2026-10-27 18:10:12,409 | INFO | glaucpio.resnet | Epoch  4/30 | Loss: 0.5623 | Train: 0.7974 | Val Acc: 0.7245 | F1 macro: 0.5725
+2026-10-27 18:11:36,521 | INFO | glaucpio.resnet | Epoch  5/30 | Loss: 0.4997 | Train: 0.8179 | Val Acc: 0.7143 | F1 macro: 0.5294
+2026-10-27 18:13:00,513 | INFO | glaucpio.resnet | Epoch  6/30 | Loss: 0.3526 | Train: 0.8308 | Val Acc: 0.7347 | F1 macro: 0.5954
+2026-10-27 18:13:00,554 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.5954
+2026-10-27 18:14:26,055 | INFO | glaucpio.resnet | Epoch  7/30 | Loss: 0.3202 | Train: 0.8846 | Val Acc: 0.6429 | F1 macro: 0.5410
+2026-10-27 18:15:50,578 | INFO | glaucpio.resnet | Epoch  8/30 | Loss: 0.2272 | Train: 0.9410 | Val Acc: 0.6327 | F1 macro: 0.5823
+2026-10-27 18:17:15,228 | INFO | glaucpio.resnet | Epoch  9/30 | Loss: 0.2017 | Train: 0.9410 | Val Acc: 0.6429 | F1 macro: 0.5492
+2026-10-27 18:18:39,930 | INFO | glaucpio.resnet | Epoch 10/30 | Loss: 0.2847 | Train: 0.9205 | Val Acc: 0.7449 | F1 macro: 0.6192
+2026-10-27 18:18:39,971 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6192
+2026-10-27 18:20:05,357 | INFO | glaucpio.resnet | Epoch 11/30 | Loss: 0.2470 | Train: 0.9282 | Val Acc: 0.7347 | F1 macro: 0.6409
+2026-10-27 18:20:05,398 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6409
+2026-10-27 18:21:30,392 | INFO | glaucpio.resnet | Epoch 12/30 | Loss: 0.2520 | Train: 0.9282 | Val Acc: 0.6429 | F1 macro: 0.5583
+2026-10-27 18:22:54,783 | INFO | glaucpio.resnet | Epoch 13/30 | Loss: 0.2179 | Train: 0.9308 | Val Acc: 0.6633 | F1 macro: 0.6007
+2026-10-27 18:24:19,256 | INFO | glaucpio.resnet | Epoch 14/30 | Loss: 0.1462 | Train: 0.9538 | Val Acc: 0.7347 | F1 macro: 0.6139
+2026-10-27 18:25:43,998 | INFO | glaucpio.resnet | Epoch 15/30 | Loss: 0.0861 | Train: 0.9846 | Val Acc: 0.7143 | F1 macro: 0.6112
+2026-10-27 18:27:08,562 | INFO | glaucpio.resnet | Epoch 16/30 | Loss: 0.1040 | Train: 0.9769 | Val Acc: 0.7143 | F1 macro: 0.6029
+2026-10-27 18:28:32,713 | INFO | glaucpio.resnet | Epoch 17/30 | Loss: 0.0663 | Train: 0.9949 | Val Acc: 0.7143 | F1 macro: 0.5932
+2026-10-27 18:29:57,879 | INFO | glaucpio.resnet | Epoch 18/30 | Loss: 0.0600 | Train: 0.9923 | Val Acc: 0.7347 | F1 macro: 0.6116
+2026-10-27 18:31:22,756 | INFO | glaucpio.resnet | Epoch 19/30 | Loss: 0.0583 | Train: 0.9949 | Val Acc: 0.7143 | F1 macro: 0.5961
+2026-10-27 18:32:47,153 | INFO | glaucpio.resnet | Epoch 20/30 | Loss: 0.0367 | Train: 0.9897 | Val Acc: 0.7041 | F1 macro: 0.5976
+2026-10-27 18:34:10,709 | INFO | glaucpio.resnet | Epoch 21/30 | Loss: 0.0469 | Train: 0.9872 | Val Acc: 0.7245 | F1 macro: 0.6031
+2026-10-27 18:35:36,356 | INFO | glaucpio.resnet | Epoch 22/30 | Loss: 0.0480 | Train: 0.9923 | Val Acc: 0.7551 | F1 macro: 0.6353
+2026-10-27 18:37:00,560 | INFO | glaucpio.resnet | Epoch 23/30 | Loss: 0.0425 | Train: 1.0000 | Val Acc: 0.7551 | F1 macro: 0.6321
+2026-10-27 18:38:25,265 | INFO | glaucpio.resnet | Epoch 24/30 | Loss: 0.0346 | Train: 0.9974 | Val Acc: 0.7143 | F1 macro: 0.5870
+2026-10-27 18:39:49,531 | INFO | glaucpio.resnet | Epoch 25/30 | Loss: 0.0305 | Train: 0.9923 | Val Acc: 0.7551 | F1 macro: 0.6406
+2026-10-27 18:41:15,745 | INFO | glaucpio.resnet | Epoch 26/30 | Loss: 0.0475 | Train: 0.9897 | Val Acc: 0.7347 | F1 macro: 0.5987
+2026-10-27 18:42:40,141 | INFO | glaucpio.resnet | Epoch 27/30 | Loss: 0.0331 | Train: 0.9974 | Val Acc: 0.7143 | F1 macro: 0.5853
+2026-10-27 18:44:04,053 | INFO | glaucpio.resnet | Epoch 28/30 | Loss: 0.0273 | Train: 0.9974 | Val Acc: 0.7347 | F1 macro: 0.6179
+2026-10-27 18:45:28,408 | INFO | glaucpio.resnet | Epoch 29/30 | Loss: 0.0346 | Train: 0.9949 | Val Acc: 0.7245 | F1 macro: 0.5937
+2026-10-27 18:46:53,953 | INFO | glaucpio.resnet | Epoch 30/30 | Loss: 0.0825 | Train: 0.9923 | Val Acc: 0.7551 | F1 macro: 0.6433
+2026-10-27 18:46:53,994 | INFO | glaucpio.resnet |   ✅ Novo melhor F1 macro: 0.6433
+2026-10-27 18:46:53,994 | INFO | glaucpio.resnet | ============================================================
+2026-10-27 18:46:53,994 | INFO | glaucpio.resnet | RELATÓRIO FINAL — RESNET-18
+2026-10-27 18:46:53,995 | INFO | glaucpio.resnet | ============================================================
+2026-10-27 18:46:54,013 | INFO | glaucpio.resnet | 
+              precision    recall  f1-score   support
+
+      normal       0.86      0.85      0.86        67
+     suspect       0.62      0.59      0.61        17
+    glaucoma       0.44      0.50      0.47        14
+
+    accuracy                           0.76        98
+   macro avg       0.64      0.65      0.64        98
+weighted avg       0.76      0.76      0.76        98
+
+2026-10-27 18:46:54,015 | INFO | glaucpio.resnet | 
+Matriz de confusão:
+[[57  3  7]
+ [ 5 10  2]
+ [ 4  3  7]]
+2026-10-27 18:46:54,015 | INFO | glaucpio.resnet | 
+Melhor F1 macro: 0.6433
+2026-10-27 18:46:54,020 | INFO | glaucpio.resnet | 
+→ /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_historico.csv
+2026-10-27 18:46:54,020 | INFO | glaucpio.resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_predicoes.csv
+2026-10-27 18:46:54,020 | INFO | glaucpio.resnet | ============================================================
+2026-10-27 18:50:24,586 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:50:24,586 | INFO | glaucpio.calibracao | AVALIAÇÃO DE CALIBRAÇÃO — GlaucPIO
+2026-10-27 18:50:24,586 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:50:24,587 | ERROR | glaucpio.calibracao | Predições não encontradas: /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/predicoes.npz
+2026-10-27 18:50:24,587 | ERROR | glaucpio.calibracao | Rode primeiro: python scripts/treinar_modelos.py
+2026-10-27 18:52:08,303 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:52:08,303 | INFO | glaucpio.calibracao | AVALIAÇÃO DE CALIBRAÇÃO — GlaucPIO
+2026-10-27 18:52:08,303 | INFO | glaucpio.calibracao | ============================================================
+2026-10-27 18:52:08,303 | ERROR | glaucpio.calibracao | Predições não encontradas: /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/predicoes.npz
+2026-10-27 18:52:08,303 | ERROR | glaucpio.calibracao | Rode primeiro: python scripts/treinar_resnet.py
+2026-10-27 18:55:29,211 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 18:55:29,212 | INFO | glaucpio.calibracao_resnet | AVALIAÇÃO DE CALIBRAÇÃO — RESNET-18
+2026-10-27 18:55:29,212 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 18:55:29,218 | INFO | glaucpio.calibracao_resnet | Predições carregadas: 98 casos
+2026-10-27 18:55:29,218 | INFO | glaucpio.calibracao_resnet | Gerando reliability diagram...
+2026-10-27 18:55:30,807 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_reliability.png
+2026-10-27 18:55:30,807 | INFO | glaucpio.calibracao_resnet | Gerando curvas ROC...
+2026-10-27 18:55:31,488 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_roc.png
+2026-10-27 18:55:31,488 | INFO | glaucpio.calibracao_resnet | Gerando matriz de confusão...
+2026-10-27 18:55:32,408 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_matriz_confusao.png
+2026-10-27 18:55:32,416 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_calibracao.csv
+2026-10-27 18:55:32,420 | INFO | glaucpio.calibracao_resnet | 
+   Modelo  F1_macro  F1_weighted  Accuracy    ECE  Brier  AUC_normal  AUC_suspect  AUC_glaucoma  AUC_macro
+ResNet-18    0.6433       0.7578    0.7551 0.1243 0.1752      0.8642       0.9158        0.7764     0.8521
+2026-10-27 18:55:32,420 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 18:55:32,420 | INFO | glaucpio.calibracao_resnet | ✅ Avaliação de calibração concluída.
+2026-10-27 19:39:17,451 | INFO | glaucpio.fase3 | Casos com imagem: 488
+2026-10-27 19:39:17,495 | INFO | glaucpio.fase3 | Train: 390 | Test: 98
+2026-10-27 19:39:17,495 | INFO | glaucpio.fase3 | Device: cpu
+2026-10-27 19:40:47,534 | INFO | glaucpio.fase3 | Epoch  1/30 | Train Loss: 1.1051 | Train Acc: 0.4590 | Val Acc: 0.5306
+2026-10-27 19:40:47,573 | INFO | glaucpio.fase3 |   ✅ Novo melhor: 0.5306
+2026-10-27 19:42:11,386 | INFO | glaucpio.fase3 | Epoch  2/30 | Train Loss: 0.7632 | Train Acc: 0.6692 | Val Acc: 0.5408
+2026-10-27 19:42:11,427 | INFO | glaucpio.fase3 |   ✅ Novo melhor: 0.5408
+2026-10-27 19:43:36,313 | INFO | glaucpio.fase3 | Epoch  3/30 | Train Loss: 0.6676 | Train Acc: 0.7308 | Val Acc: 0.7347
+2026-10-27 19:43:36,358 | INFO | glaucpio.fase3 |   ✅ Novo melhor: 0.7347
+2026-10-27 19:45:05,708 | INFO | glaucpio.fase3 | Epoch  4/30 | Train Loss: 0.4551 | Train Acc: 0.8282 | Val Acc: 0.6837
+2026-10-27 19:46:29,830 | INFO | glaucpio.fase3 | Epoch  5/30 | Train Loss: 0.4256 | Train Acc: 0.8513 | Val Acc: 0.6633
+2026-10-27 19:47:55,114 | INFO | glaucpio.fase3 | Epoch  6/30 | Train Loss: 0.3861 | Train Acc: 0.8641 | Val Acc: 0.5000
+2026-10-27 19:49:18,382 | INFO | glaucpio.fase3 | Epoch  7/30 | Train Loss: 0.3709 | Train Acc: 0.8564 | Val Acc: 0.6224
+2026-10-27 19:50:42,369 | INFO | glaucpio.fase3 | Epoch  8/30 | Train Loss: 0.2491 | Train Acc: 0.9154 | Val Acc: 0.7245
+2026-10-27 19:52:07,349 | INFO | glaucpio.fase3 | Epoch  9/30 | Train Loss: 0.1908 | Train Acc: 0.9436 | Val Acc: 0.7653
+2026-10-27 19:52:07,391 | INFO | glaucpio.fase3 |   ✅ Novo melhor: 0.7653
+2026-10-27 19:53:31,196 | INFO | glaucpio.fase3 | Epoch 10/30 | Train Loss: 0.1626 | Train Acc: 0.9359 | Val Acc: 0.7245
+2026-10-27 19:54:54,737 | INFO | glaucpio.fase3 | Epoch 11/30 | Train Loss: 0.1698 | Train Acc: 0.9462 | Val Acc: 0.7245
+2026-10-27 19:56:18,601 | INFO | glaucpio.fase3 | Epoch 12/30 | Train Loss: 0.2281 | Train Acc: 0.9385 | Val Acc: 0.7143
+2026-10-27 19:57:42,501 | INFO | glaucpio.fase3 | Epoch 13/30 | Train Loss: 0.1489 | Train Acc: 0.9385 | Val Acc: 0.5918
+2026-10-27 19:59:07,180 | INFO | glaucpio.fase3 | Epoch 14/30 | Train Loss: 0.1417 | Train Acc: 0.9564 | Val Acc: 0.7143
+2026-10-27 20:00:31,827 | INFO | glaucpio.fase3 | Epoch 15/30 | Train Loss: 0.1039 | Train Acc: 0.9744 | Val Acc: 0.7245
+2026-10-27 20:01:55,221 | INFO | glaucpio.fase3 | Epoch 16/30 | Train Loss: 0.0750 | Train Acc: 0.9821 | Val Acc: 0.7041
+2026-10-27 20:03:18,772 | INFO | glaucpio.fase3 | Epoch 17/30 | Train Loss: 0.0802 | Train Acc: 0.9718 | Val Acc: 0.7449
+2026-10-27 20:04:43,591 | INFO | glaucpio.fase3 | Epoch 18/30 | Train Loss: 0.0558 | Train Acc: 0.9897 | Val Acc: 0.7551
+2026-10-27 20:06:07,835 | INFO | glaucpio.fase3 | Epoch 19/30 | Train Loss: 0.0887 | Train Acc: 0.9821 | Val Acc: 0.7143
+2026-10-27 20:07:31,537 | INFO | glaucpio.fase3 | Epoch 20/30 | Train Loss: 0.0851 | Train Acc: 0.9615 | Val Acc: 0.7857
+2026-10-27 20:07:31,582 | INFO | glaucpio.fase3 |   ✅ Novo melhor: 0.7857
+2026-10-27 20:08:55,516 | INFO | glaucpio.fase3 | Epoch 21/30 | Train Loss: 0.1090 | Train Acc: 0.9821 | Val Acc: 0.6633
+2026-10-27 20:10:20,252 | INFO | glaucpio.fase3 | Epoch 22/30 | Train Loss: 0.2309 | Train Acc: 0.9179 | Val Acc: 0.7449
+2026-10-27 20:11:43,632 | INFO | glaucpio.fase3 | Epoch 23/30 | Train Loss: 0.0779 | Train Acc: 0.9718 | Val Acc: 0.7041
+2026-10-27 20:13:07,509 | INFO | glaucpio.fase3 | Epoch 24/30 | Train Loss: 0.0722 | Train Acc: 0.9692 | Val Acc: 0.7143
+2026-10-27 20:14:31,627 | INFO | glaucpio.fase3 | Epoch 25/30 | Train Loss: 0.0393 | Train Acc: 0.9923 | Val Acc: 0.7449
+2026-10-27 20:15:56,764 | INFO | glaucpio.fase3 | Epoch 26/30 | Train Loss: 0.0302 | Train Acc: 0.9949 | Val Acc: 0.7551
+2026-10-27 20:17:20,209 | INFO | glaucpio.fase3 | Epoch 27/30 | Train Loss: 0.0292 | Train Acc: 0.9974 | Val Acc: 0.7347
+2026-10-27 20:18:43,676 | INFO | glaucpio.fase3 | Epoch 28/30 | Train Loss: 0.0385 | Train Acc: 0.9923 | Val Acc: 0.7245
+2026-10-27 20:20:07,662 | INFO | glaucpio.fase3 | Epoch 29/30 | Train Loss: 0.0326 | Train Acc: 0.9974 | Val Acc: 0.7449
+2026-10-27 20:21:32,421 | INFO | glaucpio.fase3 | Epoch 30/30 | Train Loss: 0.0239 | Train Acc: 0.9949 | Val Acc: 0.7449
+2026-10-27 20:21:32,422 | INFO | glaucpio.fase3 | 
+✅ Melhor acurácia de validação: 0.7857
+2026-10-27 20:21:32,425 | INFO | glaucpio.fase3 | ============================================================
+2026-10-27 20:21:32,425 | INFO | glaucpio.fase3 | RELATÓRIO FINAL — RESNET-18
+2026-10-27 20:21:32,425 | INFO | glaucpio.fase3 | ============================================================
+2026-10-27 20:21:32,436 | INFO | glaucpio.fase3 | 
+              precision    recall  f1-score   support
+
+      normal       0.85      0.82      0.83        67
+     suspect       0.60      0.71      0.65        17
+    glaucoma       0.46      0.43      0.44        14
+
+    accuracy                           0.74        98
+   macro avg       0.64      0.65      0.64        98
+weighted avg       0.75      0.74      0.75        98
+
+2026-10-27 20:21:32,437 | INFO | glaucpio.fase3 | 
+Matriz de confusão:
+[[55  6  6]
+ [ 4 12  1]
+ [ 6  2  6]]
+2026-10-27 20:30:23,552 | INFO | glaucpio.fase3_v2 | Casos com imagem: 488
+2026-10-27 20:30:23,583 | INFO | glaucpio.fase3_v2 | Train: 390 | Test: 98
+2026-10-27 20:30:23,583 | INFO | glaucpio.fase3_v2 | Device: cpu
+2026-10-27 20:31:48,134 | INFO | glaucpio.fase3_v2 | Epoch  1/30 | Loss: 1.0129 | Train: 0.4795 | Val Acc: 0.6327 | F1 macro: 0.5202
+2026-10-27 20:31:48,175 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.5202 (época 1)
+2026-10-27 20:33:13,579 | INFO | glaucpio.fase3_v2 | Epoch  2/30 | Loss: 0.7503 | Train: 0.6462 | Val Acc: 0.6020 | F1 macro: 0.5335
+2026-10-27 20:33:13,621 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.5335 (época 2)
+2026-10-27 20:34:39,589 | INFO | glaucpio.fase3_v2 | Epoch  3/30 | Loss: 0.6719 | Train: 0.7487 | Val Acc: 0.6735 | F1 macro: 0.5654
+2026-10-27 20:34:39,635 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.5654 (época 3)
+2026-10-27 20:36:13,518 | INFO | glaucpio.fase3_v2 | Epoch  4/30 | Loss: 0.5419 | Train: 0.7769 | Val Acc: 0.6633 | F1 macro: 0.5815
+2026-10-27 20:36:13,560 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.5815 (época 4)
+2026-10-27 20:37:59,784 | INFO | glaucpio.fase3_v2 | Epoch  5/30 | Loss: 0.4704 | Train: 0.8410 | Val Acc: 0.4490 | F1 macro: 0.4519
+2026-10-27 20:39:31,722 | INFO | glaucpio.fase3_v2 | Epoch  6/30 | Loss: 0.4055 | Train: 0.8641 | Val Acc: 0.6531 | F1 macro: 0.5827
+2026-10-27 20:39:31,768 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.5827 (época 6)
+2026-10-27 20:41:01,992 | INFO | glaucpio.fase3_v2 | Epoch  7/30 | Loss: 0.3200 | Train: 0.8641 | Val Acc: 0.7143 | F1 macro: 0.6304
+2026-10-27 20:41:02,034 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.6304 (época 7)
+2026-10-27 20:42:34,552 | INFO | glaucpio.fase3_v2 | Epoch  8/30 | Loss: 0.2249 | Train: 0.9103 | Val Acc: 0.7551 | F1 macro: 0.6521
+2026-10-27 20:42:34,663 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.6521 (época 8)
+2026-10-27 20:44:14,237 | INFO | glaucpio.fase3_v2 | Epoch  9/30 | Loss: 0.1644 | Train: 0.9513 | Val Acc: 0.7041 | F1 macro: 0.6250
+2026-10-27 20:46:08,361 | INFO | glaucpio.fase3_v2 | Epoch 10/30 | Loss: 0.2167 | Train: 0.9231 | Val Acc: 0.6531 | F1 macro: 0.5318
+2026-10-27 20:48:01,669 | INFO | glaucpio.fase3_v2 | Epoch 11/30 | Loss: 0.1022 | Train: 0.9718 | Val Acc: 0.7653 | F1 macro: 0.6584
+2026-10-27 20:48:01,714 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.6584 (época 11)
+2026-10-27 20:49:54,793 | INFO | glaucpio.fase3_v2 | Epoch 12/30 | Loss: 0.1778 | Train: 0.9641 | Val Acc: 0.7959 | F1 macro: 0.6931
+2026-10-27 20:49:54,840 | INFO | glaucpio.fase3_v2 |   ✅ Novo melhor F1 macro: 0.6931 (época 12)
+2026-10-27 20:51:56,537 | INFO | glaucpio.fase3_v2 | Epoch 13/30 | Loss: 0.1005 | Train: 0.9692 | Val Acc: 0.7143 | F1 macro: 0.6152
+2026-10-27 20:53:54,402 | INFO | glaucpio.fase3_v2 | Epoch 14/30 | Loss: 0.1027 | Train: 0.9744 | Val Acc: 0.7449 | F1 macro: 0.6445
+2026-10-27 20:55:47,980 | INFO | glaucpio.fase3_v2 | Epoch 15/30 | Loss: 0.0860 | Train: 0.9641 | Val Acc: 0.7347 | F1 macro: 0.6346
+2026-10-27 20:57:20,717 | INFO | glaucpio.fase3_v2 | Epoch 16/30 | Loss: 0.0777 | Train: 0.9769 | Val Acc: 0.7449 | F1 macro: 0.6320
+2026-10-27 20:58:45,038 | INFO | glaucpio.fase3_v2 | Epoch 17/30 | Loss: 0.1142 | Train: 0.9769 | Val Acc: 0.7857 | F1 macro: 0.6415
+2026-10-27 20:58:45,038 | INFO | glaucpio.fase3_v2 |   ⏹️  Early stopping após 5 épocas sem melhora.
+2026-10-27 20:58:45,038 | INFO | glaucpio.fase3_v2 | ============================================================
+2026-10-27 20:58:45,038 | INFO | glaucpio.fase3_v2 | MELHOR MODELO — ÉPOCA 12 (F1 macro: 0.6931)
+2026-10-27 20:58:45,038 | INFO | glaucpio.fase3_v2 | ============================================================
+2026-10-27 20:58:54,583 | INFO | glaucpio.fase3_v2 | 
+              precision    recall  f1-score   support
+
+      normal       0.87      0.90      0.88        67
+     suspect       0.71      0.59      0.65        17
+    glaucoma       0.53      0.57      0.55        14
+
+    accuracy                           0.80        98
+   macro avg       0.71      0.69      0.69        98
+weighted avg       0.79      0.80      0.79        98
+
+2026-10-27 20:58:54,585 | INFO | glaucpio.fase3_v2 | 
+Matriz de confusão:
+[[60  2  5]
+ [ 5 10  2]
+ [ 4  2  8]]
+2026-10-27 20:58:54,621 | INFO | glaucpio.fase3_v2 | 
+→ /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_historico.csv
+2026-10-27 20:58:54,621 | INFO | glaucpio.fase3_v2 | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_predicoes.csv
+2026-10-27 20:58:54,622 | INFO | glaucpio.fase3_v2 | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/papila_resnet18_best.pt
+2026-10-27 21:01:31,545 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 21:01:31,545 | INFO | glaucpio.calibracao_resnet | AVALIAÇÃO DE CALIBRAÇÃO — RESNET-18
+2026-10-27 21:01:31,545 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 21:01:31,551 | INFO | glaucpio.calibracao_resnet | Predições carregadas: 98 casos
+2026-10-27 21:01:31,551 | INFO | glaucpio.calibracao_resnet | Gerando reliability diagram...
+2026-10-27 21:01:32,324 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_reliability.png
+2026-10-27 21:01:32,325 | INFO | glaucpio.calibracao_resnet | Gerando curvas ROC...
+2026-10-27 21:01:32,843 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_roc.png
+2026-10-27 21:01:32,843 | INFO | glaucpio.calibracao_resnet | Gerando matriz de confusão...
+2026-10-27 21:01:33,684 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_matriz_confusao.png
+2026-10-27 21:01:33,710 | INFO | glaucpio.calibracao_resnet | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/csv/resnet_calibracao.csv
+2026-10-27 21:01:33,715 | INFO | glaucpio.calibracao_resnet | 
+   Modelo  F1_macro  F1_weighted  Accuracy    ECE  Brier  AUC_normal  AUC_suspect  AUC_glaucoma  AUC_macro
+ResNet-18    0.6931        0.794    0.7959 0.0983 0.1568      0.8729       0.8816        0.8393     0.8646
+2026-10-27 21:01:33,715 | INFO | glaucpio.calibracao_resnet | ============================================================
+2026-10-27 21:01:33,715 | INFO | glaucpio.calibracao_resnet | ✅ Avaliação de calibração concluída.
+2026-10-28 15:18:18,389 | INFO | glaucpio.figura_combinada | Gerando figura combinada 2×2...
+2026-10-28 15:18:18,389 | INFO | glaucpio.figura_combinada | ✓ curvas: /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_curvas.png
+2026-10-28 15:18:18,389 | INFO | glaucpio.figura_combinada | ✓ confusao: /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_matriz_confusao.png
+2026-10-28 15:18:18,389 | INFO | glaucpio.figura_combinada | ✓ reliability: /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_reliability.png
+2026-10-28 15:18:18,390 | INFO | glaucpio.figura_combinada | ✓ roc: /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_roc.png
+2026-10-28 15:18:24,251 | INFO | glaucpio.figura_combinada | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_combinada.png
+2026-10-28 15:18:28,318 | INFO | glaucpio.figura_combinada | → /home/rpvselva/IdeaProjects/glaucPIO/outputs/figures/fig_resnet_combinada.pdf
+2026-10-28 15:18:28,318 | INFO | glaucpio.figura_combinada | ✅ Figura combinada gerada.

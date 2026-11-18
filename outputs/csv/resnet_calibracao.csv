@@ -1,0 +1,2 @@
+Modelo,F1_macro,F1_weighted,Accuracy,ECE,Brier,AUC_normal,AUC_suspect,AUC_glaucoma,AUC_macro
+ResNet-18,0.6931,0.794,0.7959,0.0983,0.1568,0.8729,0.8816,0.8393,0.8646

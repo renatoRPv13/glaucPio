@@ -1,0 +1,17 @@
+# Dados sensíveis
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.dcm
+data/processed/*.csv
+*.dicom
+
+# Outputs
+outputs/csv/*.csv
+outputs/figures/*.png
+outputs/logs/*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+__pycache__/
+.venv/

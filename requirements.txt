@@ -1,0 +1,36 @@
+# --- LLM / LVM ---
+google-genai>=2.24.0
+openai>=1.40.0
+anthropic>=0.40.0
+
+# --- Processamento de imagem ---
+Pillow>=10.3.0
+
+# --- Núcleo científico ---
+numpy>=2.1.0,<3.0.0
+pandas>=2.2.0,<3.0.0
+scipy>=1.13.0,<2.0.0
+statsmodels>=0.14.0,<0.15.0
+matplotlib>=3.9.0,<4.0.0
+seaborn>=0.13.0,<0.14.0
+scikit-learn>=1.5.0,<2.0.0
+google-api-core >= 2.38.0
+# --- Reprodutibilidade e retry ---
+tenacity>=8.5.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+
+# --- Estatística adicional ---
+pingouin>=0.5.4
+
+# --- Testes ---
+pytest>=8.0.0
+
+# --- Notebooks ---
+jupyter>=1.0.0
+ipykernel>=6.29.0
+scikit-image
+
+# --- Eye-AI catalog notebooks ---
+deriva-ml @ git+https://github.com/informatics-isi-edu/deriva-ml.git@b4b3ed6f160334d1521fed7f8888da21b146eb8c
+eye-ai @ git+https://github.com/eye-ai-usc/eye-ai-ml.git@e26977fde3399540bcc68e8f0e4e4ee9cb785a42

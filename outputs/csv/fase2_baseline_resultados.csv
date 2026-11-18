@@ -1,0 +1,4 @@
+Modelo,Acc_mean,Acc_std,F1_mean,F1_std,Acc_test
+RandomForest,0.666,0.0145,0.595,0.0129,0.7143
+SVM_RBF,0.6946,0.017,0.5918,0.031,0.6837
+LogisticRegression,0.6967,0.0279,0.6827,0.0303,0.6327

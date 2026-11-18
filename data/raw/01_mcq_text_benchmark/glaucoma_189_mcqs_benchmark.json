@@ -1,0 +1,17 @@
+[
+    {
+        "item_id": "GLAUC-MCQ-001",
+        "source": "Cybersight Question Bank",
+        "subspecialty_topic": "Angle-Closure Glaucoma",
+        "question_text": "A 62-year-old hyperopic female presents with sudden onset of severe right eye pain, blurred vision, colored halos around lights, nausea, and vomiting. Intraocular pressure (IOP) in the right eye is 54 mmHg. Gonioscopy of the contralateral eye reveals an iridotrabecular contact greater than 270 degrees without peripheral anterior synechiae. What is the most appropriate definitive initial surgical management for both eyes once medical therapy reduces corneal edema?",
+        "options": {
+            "A": "Trabeculectomy with Mitomycin C in the right eye only",
+            "B": "Bilateral Laser Peripheral Iridotomy (LPI)",
+            "C": "Immediate selective laser trabeculoplasty (SLT)",
+            "D": "Cyclophotocoagulation of the right eye"
+        },
+        "correct_answer": "B",
+        "explanation": "Laser peripheral iridotomy relieves pupillary block in acute primary angle closure and is indicated prophylactically in the fellow eye due to high anatomic risk.",
+        "references": "European Glaucoma Society Guidelines (5th ed.)"
+    }
+]

@@ -1,0 +1,44 @@
+
+---
+
+## 📥 `raw/` — Dados Brutos
+
+**Regra:** nunca modificar, nunca sobrescrever, sempre ler.
+
+| Arquivo | Descrição | Origem |
+|---|---|---|
+| `glaucoma_multimodal_500_dataset.csv` | 500 casos clínicos com exames | Coleta própria / dataset sintético |
+| `gobira_2026_dados.csv` | 189 MCQs do estudo Gobira et al. (2026) | Cybersight |
+| `cybersight_189_mcqs.csv` | MCQs originais do Cybersight | Orbis International |
+
+**Como obter:**
+
+- Dataset multimodal: `scripts/gerar_dataset_sintetico.py` (a criar) ou coleta clínica com aprovação ética.
+- Dataset Gobira: extraído do artigo original.
+
+---
+
+## 🔄 `processed/` — Dados Transformados
+
+**Regra:** pode ser regenerado a qualquer momento a partir de `raw/`.
+
+| Arquivo | Descrição | Gerado por |
+|---|---|---|
+| `dataset_limpo.csv` | Dataset após limpeza (sem duplicatas, colunas normalizadas) | `scripts/preprocessar_dataset.py` |
+| `dataset_com_features.csv` | Dataset enriquecido (features derivadas) | `scripts/preprocessar_dataset.py` |
+| `estatisticas_descritivas.csv` | Resumo estatístico do dataset | `scripts/preprocessar_dataset.py` |
+| `train.csv` | Conjunto de treino (80%) | `scripts/split_train_test.py` |
+| `test.csv` | Conjunto de teste (20%) | `scripts/split_train_test.py` |
+| `imagens_redimensionadas/` | Imagens redimensionadas para 512×512 | `scripts/redimensionar_imagens.py` |
+
+**Como regenerar tudo:**
+
+```bash
+# 1. Pré-processar
+python scripts/preprocessar_dataset.py
+
+# 2. Split treino/teste
+python scripts/split_train_test.py
+
+# 3. Redimensionar imagens
+python scripts/redimensionar_imagens.py

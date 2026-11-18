@@ -1,0 +1,14 @@
+# Core dataset loading and Excel support
+numpy>=1.23,<3
+pandas>=1.5
+Pillow>=9.0
+openpyxl>=3.1
+
+# Classification and data exploration
+scikit-learn>=1.2
+matplotlib>=3.6
+jupyter>=1.0
+ipykernel>=6.0
+
+# Existing contour and segmentation utilities
+scikit-image>=0.20

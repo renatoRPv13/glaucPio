@@ -1,0 +1,13 @@
+outputs/
+├── csv/
+│   ├── gemini_eval_results.csv
+│   ├── gemini_eval_results.jsonl
+│   ├── tabela1_acuracia.csv
+│   ├── tabela2_mcnemar.csv
+│   └── resumo_estatistico.csv
+├── figures/
+│   ├── figura1_acuracia_wilson.png
+│   ├── figura2_diferenca_item.png
+│   └── ...
+└── logs/
+    └── glaucia.log
